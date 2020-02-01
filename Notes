@@ -1,0 +1,9 @@
+
+
+
+In order to set up midi tracking properly in ableton live:
+
+Open preferences>MIDI
+Find Input LoopBe1 Enable remote tracking
+
+Add LoopBe1 to the list of control surfaces in Input
