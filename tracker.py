@@ -33,6 +33,12 @@ time.sleep(2.0)
 
 frame_size = (600, 450)
 
+pan_control= 14
+
+volume_control = 9
+
+#pitch
+elevation_control = 3
 
 def map_to_midi_127(value, max_value, inverse=False):
     if inverse:
@@ -108,13 +114,13 @@ while True:
             cv2.putText(frame, f'X: {x}', (0, 20), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255))
             cv2.putText(frame, f'Y: {y}', (0, 40), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255))
             #pan
-            output.send(construct_midi('control_change', control=14, value=map_to_midi_127(x, 600, True)))
+            output.send(construct_midi('control_change', control=pan_control, value=map_to_midi_127(x, 600, True)))
             time.sleep(0.01)
             #volume/radius
-            output.send(construct_midi('control_change', control=9, value=map_to_midi_127(radius, 300)))
+            output.send(construct_midi('control_change', control=volume_control, value=map_to_midi_127(radius, 300)))
             time.sleep(0.01)
             # elevation
-            output.send(construct_midi('control_change', control=3, value=map_to_midi_127(y, 450, True)))
+            output.send(construct_midi('control_change', control=elevation_control, value=map_to_midi_127(y, 450, True)))
             time.sleep(0.01)
 
 
