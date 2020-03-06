@@ -43,9 +43,10 @@ while True:
     if frame is None:
         break
 
-    frame = imutils.resize(frame, width=600)
-
-    frame = draw_scoring_area(frame)
+    try:
+        frame = draw_scoring_area(frame)
+    except:
+        continue
 
     # show the frame to our screen
     cv2.imshow("Frame", frame)

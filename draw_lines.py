@@ -16,7 +16,7 @@ def draw_scoring_area(input_frame):
     resized = imutils.resize(input_frame, 600, 480)
     ratio = input_frame.shape[0] / float(resized.shape[0])
     # make the lower and upper bounds for our detection via color
-    red_range = np.array([0, 0, 100]), np.array([50, 12, 255])
+    red_range = np.array([0, 0, 100]), np.array([80, 20, 255])
     mask = cv2.inRange(resized, red_range[0], red_range[1])
 # find the shapes in the mask
     contours = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
@@ -29,12 +29,12 @@ def draw_scoring_area(input_frame):
         # calculate center of targets
         cX = int((M["m10"]/M["m00"]))
         cY = int((M["m01"]/M["m00"]))
-        centers.append((cX,cY))
+        centers.append((cX, cY))
 
-        cv2.drawContours(resized, [c], -1, (0, 255,0))
-    centers.sort(key=lambda x: x[0] )
+        cv2.drawContours(resized, [c], -1, (0, 255, 0))
+    centers.sort(key=lambda x: x[0])
 
-    output = cv2.rectangle(resized,centers[1], centers[-1],color=[255,255,255], thickness=5)
+    output = cv2.rectangle(resized, centers[1], centers[-1], color=[255, 255, 255], thickness=5)
 
     return output
 
@@ -79,9 +79,8 @@ if __name__ == '__main__':
     # load img and resize for simplicity's sake
     img = cv2.imread(args['image'])
     scoring  = draw_scoring_area(img)
-    floor = draw_floor_lines(img)
-
-    re_out = cv2.bitwise_or(scoring,floor)
-    # re_out = imutils.resize(floor,600,480)
+    # floor = draw_floor_lines(img)
+    # re_out = cv2.bitwise_or(scoring,floor)
+    re_out = imutils.resize(scoring,600,480)
     cv2.imshow("img", re_out)
     cv2.waitKey(0)
